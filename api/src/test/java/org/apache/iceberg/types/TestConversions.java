@@ -37,6 +37,7 @@ import org.apache.iceberg.types.Types.LongType;
 import org.apache.iceberg.types.Types.StringType;
 import org.apache.iceberg.types.Types.TimeType;
 import org.apache.iceberg.types.Types.TimestampType;
+import org.apache.iceberg.types.Types.TinyintType;
 import org.apache.iceberg.types.Types.UUIDType;
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,6 +51,11 @@ public class TestConversions {
     assertConversion(true, BooleanType.get(), new byte[]{0x01});
     Assert.assertArrayEquals(new byte[]{0x00}, Literal.of(false).toByteBuffer().array());
     Assert.assertArrayEquals(new byte[]{0x01}, Literal.of(true).toByteBuffer().array());
+
+    // tinyints are stored as 1 byte in little-endian order
+    // 39 can be stored in a single byte since it's < 128
+    assertConversion((byte) 39, TinyintType.get(), new byte[]{39});
+    Assert.assertArrayEquals(new byte[]{39}, Literal.of((byte) 39).toByteBuffer().array());
 
     // integers are stored as 4 bytes in little-endian order
     // 84202 is 0...01|01001000|11101010 in binary

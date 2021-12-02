@@ -35,6 +35,10 @@ public interface Literal<T> extends Serializable {
     return new Literals.BooleanLiteral(value);
   }
 
+  static Literal<Byte> of(byte value) {
+    return new Literals.TinyintLiteral(value);
+  }
+
   static Literal<Integer> of(int value) {
     return new Literals.IntegerLiteral(value);
   }

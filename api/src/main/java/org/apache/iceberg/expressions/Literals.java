@@ -240,6 +240,43 @@ class Literals {
     }
   }
 
+  static class TinyintLiteral extends ComparableLiteral<Byte> {
+    TinyintLiteral(Byte value) {
+      super(value);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> Literal<T> to(Type type) {
+      switch (type.typeId()) {
+        case TINYINT:
+          return (Literal<T>) this;
+        case INTEGER:
+          return (Literal<T>) new IntegerLiteral(value().intValue());
+        case LONG:
+          return (Literal<T>) new LongLiteral(value().longValue());
+        case FLOAT:
+          return (Literal<T>) new FloatLiteral(value().floatValue());
+        case DOUBLE:
+          return (Literal<T>) new DoubleLiteral(value().doubleValue());
+        case DATE:
+          return (Literal<T>) new DateLiteral(value().intValue());
+        case DECIMAL:
+          int scale = ((Types.DecimalType) type).scale();
+          // rounding mode isn't necessary, but pass one to avoid warnings
+          return (Literal<T>) new DecimalLiteral(
+                  BigDecimal.valueOf(value()).setScale(scale, RoundingMode.HALF_UP));
+        default:
+          return null;
+      }
+    }
+
+    @Override
+    protected Type.TypeID typeId() {
+      return Type.TypeID.TINYINT;
+    }
+  }
+
   static class IntegerLiteral extends ComparableLiteral<Integer> {
     IntegerLiteral(Integer value) {
       super(value);
@@ -249,6 +286,13 @@ class Literals {
     @SuppressWarnings("unchecked")
     public <T> Literal<T> to(Type type) {
       switch (type.typeId()) {
+        case TINYINT:
+          if ((int) Byte.MAX_VALUE < value()) {
+            return aboveMax();
+          } else if ((int) Byte.MIN_VALUE > value()) {
+            return belowMin();
+          }
+          return (Literal<T>) new TinyintLiteral(value().byteValue());
         case INTEGER:
           return (Literal<T>) this;
         case LONG:
@@ -284,6 +328,13 @@ class Literals {
     @SuppressWarnings("unchecked")
     public <T> Literal<T> to(Type type) {
       switch (type.typeId()) {
+        case TINYINT:
+          if ((long) Byte.MAX_VALUE < value()) {
+            return aboveMax();
+          } else if ((long) Byte.MIN_VALUE > value()) {
+            return belowMin();
+          }
+          return (Literal<T>) new TinyintLiteral(value().byteValue());
         case INTEGER:
           if ((long) Integer.MAX_VALUE < value()) {
             return aboveMax();

@@ -42,6 +42,7 @@ public class Types {
   private static final ImmutableMap<String, PrimitiveType> TYPES = ImmutableMap
       .<String, PrimitiveType>builder()
       .put(BooleanType.get().toString(), BooleanType.get())
+      .put(TinyintType.get().toString(), TinyintType.get())
       .put(IntegerType.get().toString(), IntegerType.get())
       .put(LongType.get().toString(), LongType.get())
       .put(FloatType.get().toString(), FloatType.get())
@@ -94,6 +95,24 @@ public class Types {
     @Override
     public String toString() {
       return "boolean";
+    }
+  }
+
+  public static class TinyintType extends PrimitiveType {
+    private static final TinyintType INSTANCE = new TinyintType();
+
+    public static TinyintType get() {
+      return INSTANCE;
+    }
+
+    @Override
+    public TypeID typeId() {
+      return TypeID.TINYINT;
+    }
+
+    @Override
+    public String toString() {
+      return "tinyint";
     }
   }
 

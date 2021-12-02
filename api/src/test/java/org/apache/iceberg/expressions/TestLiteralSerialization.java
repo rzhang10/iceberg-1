@@ -31,6 +31,7 @@ public class TestLiteralSerialization {
   public void testLiterals() throws Exception {
     Literal[] literals = new Literal[] {
         Literal.of(false),
+        Literal.of((byte) 3),
         Literal.of(34),
         Literal.of(35L),
         Literal.of(36.75F),
