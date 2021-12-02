@@ -28,6 +28,7 @@ import java.util.List;
 public interface Type extends Serializable {
   enum TypeID {
     BOOLEAN(Boolean.class),
+    TINYINT(Byte.class),
     INTEGER(Integer.class),
     LONG(Long.class),
     FLOAT(Float.class),

@@ -36,6 +36,7 @@ public class Comparators {
   private static final ImmutableMap<Type.PrimitiveType, Comparator<?>> COMPARATORS = ImmutableMap
       .<Type.PrimitiveType, Comparator<?>>builder()
       .put(Types.BooleanType.get(), Comparator.naturalOrder())
+      .put(Types.TinyintType.get(), Comparator.naturalOrder())
       .put(Types.IntegerType.get(), Comparator.naturalOrder())
       .put(Types.LongType.get(), Comparator.naturalOrder())
       .put(Types.FloatType.get(), Comparator.naturalOrder())

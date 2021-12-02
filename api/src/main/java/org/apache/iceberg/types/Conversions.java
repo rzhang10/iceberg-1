@@ -49,6 +49,8 @@ public class Conversions {
     switch (type.typeId()) {
       case BOOLEAN:
         return Boolean.valueOf(asString);
+      case TINYINT:
+        return Byte.valueOf(asString);
       case INTEGER:
         return Integer.valueOf(asString);
       case LONG:
@@ -94,6 +96,8 @@ public class Conversions {
     switch (typeId) {
       case BOOLEAN:
         return ByteBuffer.allocate(1).put(0, (Boolean) value ? (byte) 0x01 : (byte) 0x00);
+      case TINYINT:
+        return ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN).put(0, (byte) value);
       case INTEGER:
       case DATE:
         return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(0, (int) value);
@@ -143,6 +147,8 @@ public class Conversions {
     switch (type.typeId()) {
       case BOOLEAN:
         return tmp.get() != 0x00;
+      case TINYINT:
+        return tmp.get();
       case INTEGER:
       case DATE:
         return tmp.getInt();

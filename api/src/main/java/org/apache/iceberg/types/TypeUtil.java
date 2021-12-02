@@ -289,6 +289,9 @@ public class TypeUtil {
     }
 
     switch (from.typeId()) {
+      case TINYINT:
+        return to == Types.IntegerType.get() || to == Types.LongType.get();
+
       case INTEGER:
         return to == Types.LongType.get();
 
