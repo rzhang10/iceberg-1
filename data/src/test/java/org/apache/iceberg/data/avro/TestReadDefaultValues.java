@@ -130,10 +130,10 @@ public class TestReadDefaultValues {
       List<Record> generatedRecords = RandomGenericData.generate(writerSchema, 100, 0L);
       List<Record> expected = Lists.newArrayList();
       for (Record record : generatedRecords) {
-        Record r = GenericRecord.create(readerSchema);
-        r.set(0, record.get(0));
-        r.set(1, defaultValue);
-        expected.add(r);
+        Record rec = GenericRecord.create(readerSchema);
+        rec.set(0, record.get(0));
+        rec.set(1, defaultValue);
+        expected.add(rec);
       }
 
       File testFile = temp.newFile();

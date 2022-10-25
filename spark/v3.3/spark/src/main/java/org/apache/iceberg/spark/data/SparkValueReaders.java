@@ -76,7 +76,10 @@ public class SparkValueReaders {
   }
 
   static ValueReader<InternalRow> struct(
-      List<ValueReader<?>> readers, Types.StructType struct, Schema record, Map<Integer, ?> idToConstant) {
+      List<ValueReader<?>> readers,
+      Types.StructType struct,
+      Schema record,
+      Map<Integer, ?> idToConstant) {
     return new StructReader(readers, struct, record, idToConstant);
   }
 
@@ -258,7 +261,10 @@ public class SparkValueReaders {
     private final int numFields;
 
     protected StructReader(
-        List<ValueReader<?>> readers, Types.StructType struct, Schema record, Map<Integer, ?> idToConstant) {
+        List<ValueReader<?>> readers,
+        Types.StructType struct,
+        Schema record,
+        Map<Integer, ?> idToConstant) {
       super(readers, struct, record, idToConstant);
       this.numFields = readers.size();
     }

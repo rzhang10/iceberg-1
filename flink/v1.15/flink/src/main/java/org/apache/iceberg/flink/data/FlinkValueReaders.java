@@ -88,7 +88,10 @@ public class FlinkValueReaders {
   }
 
   static ValueReader<RowData> struct(
-      List<ValueReader<?>> readers, Types.StructType struct, Schema record, Map<Integer, ?> idToConstant) {
+      List<ValueReader<?>> readers,
+      Types.StructType struct,
+      Schema record,
+      Map<Integer, ?> idToConstant) {
     return new StructReader(readers, struct, record, idToConstant);
   }
 
@@ -287,7 +290,10 @@ public class FlinkValueReaders {
     private final int numFields;
 
     private StructReader(
-        List<ValueReader<?>> readers, Types.StructType struct, Schema record, Map<Integer, ?> idToConstant) {
+        List<ValueReader<?>> readers,
+        Types.StructType struct,
+        Schema record,
+        Map<Integer, ?> idToConstant) {
       super(readers, struct, record, idToConstant);
       this.numFields = readers.size();
     }
